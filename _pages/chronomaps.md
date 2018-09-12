@@ -312,7 +312,7 @@ This results in an [interactive webpage](/assets/images/chronomaps/travel_map_Ir
 
 <iframe src="/assets/images/chronomaps/travel_map_Irvine.html" style="width: 49%; height: 300px"></iframe>
 
-> Note: there seems to be a bug in the opacity rendering of mplleaflet. I fixed it by defining a function that reads the HTML file and adds a `"fillOpacity"=0.5` to all filled contours.
+> Note: there seems to be a bug in the opacity rendering of mplleaflet. I fixed it by defining a function that reads the HTML file and adds a `"fillOpacity":0.5, ` to all filled contours.
 
 
 ### Make chronomaps
