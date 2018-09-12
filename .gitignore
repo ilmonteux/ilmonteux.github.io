@@ -1,0 +1,6 @@
+.DS_store
+_site/
+*~
+.sass-cache/
+*.py
+Gemfile*
