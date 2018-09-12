@@ -6,7 +6,7 @@ header:
   caption: "Photo credit: [Simon Matzinger on **Unsplash**](https://unsplash.com/photos/twukN12EN7c)"
 
 feature_row:
-  - image_path: /assets/images/teasers/kronomaps.png
+  - image_path: /assets/images/teasers/chronomaps.png
     alt: "NYC chronomap"
     title: "Chronomaps"
     excerpt: "Create maps based on travel times instead of distances."
