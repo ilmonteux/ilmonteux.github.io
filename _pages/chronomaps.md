@@ -308,9 +308,9 @@ ax.tricontourf(xx,yy,zz, levels=levels,colors=cols,alpha=0.5)
 ax.tricontour(xx,yy,zz, levels=levels,colors=map(lambda c: krm.lighten_color(c,1.2), cols),linewidths=1);
 mplleaflet.show(fig=ax.figure, path='figs/travel_map_Irvine.html')
 ```
-This results in an [interactive webpage](https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_map_Irvine.html) with OpenStreetMap background and a filled contour shading (also seen here in an iframe):
+This results in an [interactive webpage](/assets/images/chronomaps/travel_map_Irvine.html) with OpenStreetMap background and a filled contour shading (also seen here in an iframe):
 
-<iframe src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_map_Irvine.html" style="width: 49%; height: 300px"></iframe>
+<iframe src="/assets/images/chronomaps/travel_map_Irvine.html" style="width: 49%; height: 300px"></iframe>
 
 > Note: there seems to be a bug in the opacity rendering of mplleaflet. I fixed it by defining a function that reads the HTML file and adds a `"fillOpacity"=0.5` to all filled contours.
 
