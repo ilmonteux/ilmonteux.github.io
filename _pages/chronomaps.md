@@ -7,7 +7,7 @@ layout: single
 classes: wide
 toc: true
 header:
-  image: /assets/images/chronomaps/grid_cities_chronomaps.png
+  image: /assets/images/chronomaps/chronomap_SF_combined.png
 
 gallery_cities: 
   - url: /assets/images/chronomaps/chronomap_Irvine_combined.png
