@@ -42,13 +42,13 @@ gallery_cities:
 
 The purpose of this exercise (hosted on [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/)) is to generate **chronomaps**, that is, maps where a segment length on the map reflects travel times instead of distances. The end results are shown in the header above.
 
-We will start by using the Google Maps Distance Matrix API to calculate travel times between a starting location and a grid of points around that origin.  This is all we need as input data: first, we can generate fixed travel time contours (isochrones) around the origin. Then, to generate a chronomap, we just need to change the map in the following way. For each point at a given (real) distance from the origin, we remap it to a different point that lies on the same direction but has a different radial distance, which will be given by the travel time to that point from the origin.
+We will start by using the Google Maps Distance Matrix API to calculate travel times between a starting location and a grid of points around that origin.  This is all we need as input data: first, we can generate fixed travel time contours (isochrones) around the origin. Then, to generate a chronomap, we just need to change the map in the following way: for each point at a given (real) distance from the origin, we remap it to a different point that lies on the same direction but has a different radial distance, which will be given by the travel time to that point from the origin.
 
-We can apply this transformation to any map point that we want to remap. First, one could take the map image (for example, with roads and topographical information from the ArcGIS ESRI service) and remap each pixel, but unfortunately the result is very distorted. For example, any text in the map (for roads, cities names) gets distorted because the text spans a large area: the travel times to the points under each side of the text label are different, and so the text gets spanned and distorted.
+We can apply this transformation to any map point that we want to remap. First, one could take the map image (for example, with roads and topographical information from the ArcGIS ESRI service) and remap each pixel, but unfortunately the result is very distorted. For example, any text in the map (labelling roads or cities) gets distorted because the text spans a large area: the travel times to the points under each side of the text label are different, and so the text gets spanned and distorted.
 
-If I had access to the underlying dynamic Google Maps (or ArcGIS) building pipeline, I could indipendently transform any feature of the map, attach labels to the transformed points, and then render the new map. 
+If I had access to the underlying dynamic Google Maps (or ArcGIS) building pipeline, I could independently transform any feature of the map, attach labels to the transformed points, and then render the new map. 
 
-Maybe this can be done with OpenStreetMaps (?), but for the scope of this project, I will build my own map from a short list of features: country and state borders, coastlines, main highways, and the main cities in the range that is being plotted. From the standard map, I will transform each coordinate for all of these features and then render a *chronomap* including all those features. It is straightforward to include other features (some in my mind: counties, forests, topography so mountains can be drawn,)
+Maybe this can be done with OpenStreetMaps (?), but for the scope of this project, I will build my own map from a short list of features: country and state borders, coastlines, main highways, and the main cities in the range that is being plotted. From the standard map, I will transform each coordinate for all of these features and then render a *chronomap* including all those features. It is straightforward to include other features (some in my mind: counties, forests, topography).
 
 Some of the resulting chronomaps are shown above in the header. The rest is shown next in the [Results](#results) section, while the detailed walkthrough explaining how the code runs is below in the [Tutorial](#tutorial) section below.
 
@@ -267,14 +267,15 @@ xx, yy, zz = zip(*[ el for el in zip(x,y,z) if el[-1]!=1000000./60])    # clean 
 Because I made a lot of these plots, I defined a function that does all the work:
 
 ```python 
-def make_contour_map(x,y,z, ax, levels, pos0='', service='ESRI_StreetMap_World_2D', xpixels=500, EPSG = 2229, resolution='l', cbarlabel='Travel Times (minutes)', rebox=0.1, cbarfraction=0.045, cbarextend='max'):
+def make_contour_map(x,y,z, ax, levels, pos0='', service='World_Street_Map', xpixels=500, EPSG = 2229, resolution='l', cbarlabel='Travel Times (minutes)', rebox=0.1, cbarfraction=0.045, cbarextend='max'):
     
     LL , UR = (min(x)+rebox, min(y)+rebox), (max(x)-rebox, max(y)-rebox)
     
     themap = Basemap(llcrnrlon=LL[0],llcrnrlat=LL[1],urcrnrlon=UR[0],urcrnrlat=UR[1], epsg=EPSG, ax=ax, resolution=resolution)
     if service == 'shadedrelief': themap.shadedrelief()
-    else: themap.arcgisimage(service=service,xpixels=xpixels)
-    themap.drawcoastlines(linewidth=0.5)
+    else:
+        try: themap.arcgisimage(service=service,xpixels=xpixels)
+        except: themap.arcgisimage(service='World_Street_Map',xpixels=xpixels)
     
     xm, ym = themap(x,y)
     (z, levels) = (np.array(z)/60., np.array(levels)/60.) if 'hours' in cbarlabel else (z, levels)
@@ -292,7 +293,7 @@ def make_contour_map(x,y,z, ax, levels, pos0='', service='ESRI_StreetMap_World_2
     return ax
 ```
 
-This functions create a Basemap projection (given an EPSG code), draws a background, which by default is `ESRI_StreetMap_World_2D`, then draws contours of `z` over it and puts a legend bar (assumed to be in minutes, but can be in hours if specified). The function `patch_mask_oceans_lakes()` adds a water layer that covers up all the ocean/lakes with a cyan color, where the shorelines are defined by the BaseMap projection (the code comes from [this StackOverflow answer](https://stackoverflow.com/a/48624202)). 
+This functions create a Basemap projection (given an EPSG code), draws a background, which by default is `World_Street_Map `, then draws contours of `z` over it and puts a legend bar (assumed to be in minutes, but can be in hours if specified). The function `patch_mask_oceans_lakes()` adds a water layer that covers up all the oceans/lakes with a cyan color, where the shorelines are defined by the BaseMap projection (the code comes from [this StackOverflow answer](https://stackoverflow.com/a/48624202)). 
 
 The resulting figures are as follows (here I show the full range and then a zoom into the 1-hour range near Irvine):
 
