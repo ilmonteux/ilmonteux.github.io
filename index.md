@@ -32,10 +32,12 @@ feature_row:
     </li>
   {% endfor %}
 </ul>
-{% endcomment %}
 
 - [Chronomaps](chronomaps)
 - [Cartogramming US election results](cartograms)
+{% endcomment %}
+
+
 
 
 {% include feature_row id="feature_row" %}

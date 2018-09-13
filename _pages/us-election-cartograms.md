@@ -24,7 +24,8 @@ When running through the code below, anyone can generate maps like the one showe
 
 
 # Tutorial
-This is a short walkthrough of the Jupyter notebooks available on my [US_elections project](https://github.com/ilmonteux/mapping/blob/master/US_elections/) on GitHub. Head over there to see the gritty details, and to reproduce the maps or make your own.
+This is a short walkthrough of the Jupyter notebooks available on my [US_elections project](https://github.com/ilmonteux/mapping/blob/master/US_elections/) on GitHub. Head over there to see the gritty details, and to reproduce the maps or make your own. This first section runs through  the Jupyter notebook [election_maps.ipynb](https://github.com/ilmonteux/mapping/blob/master/US_elections/demographics.ipynb).
+
 
 First, I will import the dataset which contains county-level election results, demographics and coordinates for county borders. This is not my own work, instead all the thanks go to the [New York Times](https://www.nytimes.com/elections/results/president), to  [deleetdk on github](https://github.com/Deleetdk/USA.county.data) and to [OpenDataSoft.com](http://data.opendatasoft.com/explore/dataset/usa-2016-presidential-election-by-county@public/). The dataset is simply a JSON file:
 ```python
@@ -172,7 +173,7 @@ Here the shading is relatively unimportant, as most states are winner-take-all.
 
 # Individual state cartograms
 In the US-wide maps above, details for each state are mostly too small to discern. I can take each state individually and make a population cartogram that will show the internal shifting of counties. To make maps more recognizable, I also overlay interstate highways (from the US census [TIGER dataset](http://www2.census.gov/geo/tiger/TIGER2016/PRIMARYROADS/tl_2016_us_primaryroads.zip)).   
-I found that the most logical combination of plots is to show the election results on the standard map, the population density and then the cartogram. Plots for each state are saved , in the [figs/state_maps/](figs/state_maps/) subdirectory. Here are some samples:
+I found that the most logical combination of plots is to show the election results on the standard map, the population density and then the cartogram. Plots for each state are saved , in the [state_maps/](state_maps/) subdirectory. Here are some samples:
 
 
 <img src="/assets/images/cartograms/election_county_16_CA.png" alt="2016 CA map"  width="45%"><img src="/assets/images/cartograms/election_county_16_GA.png" alt="2016 GA map" width="45%">
