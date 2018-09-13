@@ -17,12 +17,12 @@ minimal_mistakes_skin : "default" # "air", "aqua", "contrast", "dark", "dirt", "
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 name: &name "Angelo Monteux" # &name is a YAML anchor which can be *referenced later
-title: Excursions in the land of data
+title: Excursions in dataland
 email: ""
 description: &description ""
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  ilmonteux
-#repository: ilmonteux.github.io
+#repository: github.com/ilmonteux
 
 
 # Site Author
@@ -49,8 +49,8 @@ author:
 markdown: kramdown
 #theme: minima
 #theme: jekyll-theme-minimal
-plugins:
-  - jekyll-feed
+#plugins:
+#  - jekyll-feed
 
 # includes directory
 include:

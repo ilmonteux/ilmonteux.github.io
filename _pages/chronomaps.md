@@ -61,7 +61,34 @@ Some of the resulting chronomaps are shown above in the header. The rest is show
 coming soon
 
 ### animations
-coming soon
+Check out the following visualizations to better understand the concept of chronomap: here I show a standard topo map, overlayed with travel isochrones that progressively fill the whole map (as a driver would starting from the origin). Then, the map is smoothly transitioned to the corresponding chronomap (click on each video to play it).
+
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Irvine.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_SF.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Sea.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Den.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Chi.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_DC.mp4" type="video/mp4">
+</video>
+<video width="384" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_NY.mp4" type="video/mp4">
+</video>
+
+Interesting pieces of information apparent in the videos above:
+- notice how, when transitioning to the chronomap, certain cities move away from the departure point, while others move closer. This happens when the destination is further away (in travel time) than one would naively think by looking at the distance.
+- notice how most distortions are related to the highway network. This was obviously expected, as the fastest way to get somewhere is through freeways.
+
 
 ## Tutorial
 
@@ -185,30 +212,7 @@ def move_from_to_angle(p0, dist_r, alpha):
 
 Starting from an origin point, those functions return another point found moving by a certain distance either in the East/West and North/South direction or along a direction defined by the bearing `alpha` (here we use the [Haversine formulas](https://en.wikipedia.org/wiki/Haversine_formula), which are a simple application of trigonometry on a round Earth).
 
-By iterating these functions, I can generate rectangular and polar grids around an origin point. The functions that make a grid are:
-
-```python
-def make_xy_grid(p0, max_time, nx, ny, max_speed = 70.):
-    """
-    Make a rectangular grid centered around point p0=(lat,lon), up to a distance given by 
-    (max_time*max_speed) on each side, with nx, ny points in East-West, North-South directions 
-    (x=longitude, y=latitude). If max_time = (tx, ty), define different distances in the x,y axes.
-    If nx or ny are a pair (e.g. nx=(n1,n2)), define a non-centered grid, i.e. interpret the
-    two numbers as number of points in the negative, positive axis direction.
-    """
-```
-and 
-
-```python
-def make_polar_grid(p0, max_time, n_radial, n_angles, max_speed = 70):
-    """
-    Make a polar grid centered around point p0=(lat,lon), up to a radial distance given by 
-    (max_time*max_speed) in n_radial steps, along n_angles directions dividing equally the 
-    full circle. If n_angles = (alpha0, alpha1, n), only draw a cone in between alpha0 and
-    alplha1, divided n times
-    """
-```
-where I skipped the actual definition as it is a simple iteration of the previous two functions. Feel free to look at the source code if needed.
+By iterating these displacements, I can generate rectangular and polar grids around an origin point. The functions that for each type of grid are `def make_xy_grid(p0, max_time, nx, ny, max_speed = 70.)` and `make_polar_grid(p0, max_time, n_radial, n_angles, max_speed = 70)`.
 
 Finally, we can call the Distance Matrix API function above on each point of a grid, given a starting location. The function `run_travel_grid(p0, grid)` does exactly that:
 
@@ -282,7 +286,8 @@ def make_contour_map(x,y,z, ax, levels, pos0='', service='ESRI_StreetMap_World_2
     cb.set_alpha(0.7)
     cb.draw_all()
 
-    ax = patch_mask_oceans_lakes(themap, ax, aquacolor='lightcyan')
+    patches = patch_mask_oceans_lakes(themap, ax, aquacolor='lightcyan')
+    for p in patches: ax.add_patch(p)
 
     return ax
 ```
@@ -308,11 +313,14 @@ ax.tricontourf(xx,yy,zz, levels=levels,colors=cols,alpha=0.5)
 ax.tricontour(xx,yy,zz, levels=levels,colors=map(lambda c: krm.lighten_color(c,1.2), cols),linewidths=1);
 mplleaflet.show(fig=ax.figure, path='figs/travel_map_Irvine.html')
 ```
-This results in an [interactive webpage](/assets/images/chronomaps/travel_map_Irvine.html) with OpenStreetMap background and a filled contour shading (also seen here in an iframe):
-
-<iframe src="/assets/images/chronomaps/travel_map_Irvine.html" style="width: 49%; height: 300px"></iframe>
-
 > Note: there seems to be a bug in the opacity rendering of mplleaflet. I fixed it by defining a function that reads the HTML file and adds a `"fillOpacity":0.5, ` to all filled contours.
+
+This results are [interactive webpages](/chronomaps/interactive_isochrones/) with OpenStreetMap background and a filled contour shading (also seen here in an iframe):
+
+<iframe src="/assets/htmls/chronomaps/travel_map_Irvine.html" style="width: 40%; height: 300px"></iframe>
+<iframe src="/assets/htmls/chronomaps/travel_map_NY.html" style="width: 40%; height: 300px"></iframe>
+
+Check out [chronomaps/interactive_isochrones/](/chronomaps/interactive_isochrones/) for all the other interactive webpages.
 
 
 ### Make chronomaps
@@ -503,7 +511,7 @@ for idx in range(len(cities_list)):
     themap0 = themap0_list[idx]
     th0 = th0_list[idx]
     p0 = list(reversed(pos0_list[idx])) # switch lat/lon
-    ax = make_kronomap(xx,yy,zz, ax, [themap,themap0], p0, levels=levels, plot_cities=True, plot_roads=not True,
+    ax = make_chronomap(xx,yy,zz, ax, [themap,themap0], p0, levels=levels, plot_cities=True, plot_roads=not True,
                        roads=roads_list[idx], plot_water=True, dist_cut=30, theta=th0)
 ```
 This code generates the following figures:
