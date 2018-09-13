@@ -303,7 +303,7 @@ The resulting figures are as follows (here I show the full range and then a zoom
 > Note: given the coarseness of the grid, to make all the plots I averaged the travel times over N=5 nearest points (each point is averaged with 4 nearest neighbors), with the function `smoothen2d()` defined in the module. This reduces the noise level to achieve nice-looking plots.
 
 #### Isochrones on interactive maps
-The graphics above have two drawbacks: first, they are static (cannot zoom in to see more details) and second, the quality of the map layer (via arcGIS's `ESRI_StreetMap_World_2D`) is low: the details of the map are pixelated, and I could find no way to improve this (maybe it makes sense, it is a free service after all). 
+The graphics above have two drawbacks: first, they are static (cannot zoom in to see more details) and second, the quality of the map layer (via arcGIS's `World_Street_Map `) is low: the details of the map are pixelated, and I could find no way to improve this (maybe it makes sense, it is a free service after all). 
 
 Fortunately, this can be solved with [mplleaflet](https://github.com/jwass/mplleaflet), "a package that can transform and matplotlib plot into a webpage with a pannable, zoomable [Leaflet](http://leafletjs.com/) map".
 
