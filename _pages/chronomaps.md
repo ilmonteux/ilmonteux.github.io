@@ -343,7 +343,7 @@ def morph(pp, p0, func, projmap=''):
 ```
 This function simply decomposes a point (given as (lon,lat) pair of coordinates) into radial coordinates from the origin `p0`, `(dx,dy)-> (r,theta)`, computes a new radius given by the input function (which will give the travel time), and returns a `(x',y')` pair in the same direction with respect to the origin as the original point but with a new radius given by the travel time.
 
-Given that we have the travel times only on a discrete set of grid points and we want to rescale map features at arbitrary points, we need to interpolate the travel times over the input grid.  After trying the `interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf` methods of `scipy.interpolate`, I saw that the best results (more accurate, less noisy) were given by linear interpolation, i.e. `LinearNDInterpolator`.
+Given that we have the travel times only on a discrete set of grid points and we want to rescale map features at arbitrary points, we need to interpolate the travel times over the input grid.  After trying the `interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf` methods of `scipy.interpolate`, I saw that the best results (more accurate, less noisy) were given by `Rbf`, radial basis function approximator, with linear method.
 
 ```python 
 from scipy.interpolate import interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf
@@ -351,11 +351,11 @@ from scipy.interpolate import interp2d, NearestNDInterpolator, LinearNDInterpola
 func1 = interp2d(xx,yy,zz)
 func2 = NearestNDInterpolator(zip(xx,yy),zz)
 func3 = LinearNDInterpolator(zip(xx,yy),zz)
-func4 = Rbf(xx,yy,zz)
+func4 = Rbf(xx,yy,zz, function='linear')
+func5 = Rbf(xx,yy,zz)
 
 def time_func(pp):
-    res = func3(*pp) if not np.isnan(func3(*pp)) else func4(*pp)
-    return res
+    return  func4(*pp)
 ```
 
 We can now feed any point of any feature in `morph()` with input function `time_func` and the resulting map will, by construction, be a chronomap. In order to actually draw the chronompas, we will need a to go through a short detour to import features to display on the map.
@@ -367,7 +367,7 @@ We can now feed any point of any feature in `morph()` with input function `time_
 
     > Primary roads are generally divided, limited-access highways within the interstate highway system or under State management, and are distinguished by the presence of interchanges
 
-- cities: we use the `GeoNamesCache` dataset, which can easily be installed as a `conda` package. It contains information about countries, states and cities all over the world, but we will be interested in the cities dataset. We then filter the dataset to only get the list of US cities:
+- cities: we use the [GeoNames](https://www.geonames.org) dataset, accessible through `GeoNamesCache` in python, which can easily be installed as a `conda` package (on Windows only, use `pip` on Mac/Linux). It contains information about countries, states and cities all over the world, but we will be interested in the cities dataset. We then filter the dataset to only get the list of US cities:
 
     ```python
 import geonamescache
@@ -404,7 +404,7 @@ def map_font_style(pop, bins=np.array([.01,.05,.1,.5,1,3])*10**6, sizes=[7,8,9,9
         ci.append(sum([ ci2[3] for ci2 in absorbed_cities]))
     return cities
     ```
-    From an input of cities, each passed as `[lon, lat, name, population]`, for each city this looks at cities within a certain radius (25 miles by default) and adds the population of any smaller city to the city around which we are looking. The list of cities returned is then `[lon, lat, name, population, clsutered_cities_names, clsutered_cities_populations]`: as an example, take Los Angeles, which has 3.97M people in GeoNamesCache database. Within a 25 miles radius, we have Long Beach (474K) and Anaheim (350k), and many more. Summing together all the 113 cities within a 25 miles of Los Angeles, there are 11M people! So when drawing the map, I will not draw any of the smaller cities and just assign 11 million people to Los Angeles.
+    From an input of cities, each passed as `[lon, lat, name, population]`, for each city this looks at cities within a certain radius (25 miles by default) and adds the population of any smaller city to the city around which we are looking. The list of cities returned is then `[lon, lat, name, population, clsutered_cities_names, clsutered_cities_populations]`: as an example, take Los Angeles, which has 3.97M people in the GeoNamesCache database. Within a 25 miles radius, we have Long Beach (474k) and Anaheim (350k), and many more. Summing together all the 113 cities within a 25 miles of Los Angeles, there are 11M people! So when drawing the map, I will not draw any of the smaller cities and just assign 11 million people to Los Angeles.
   
 #### Chronomaps
 Finally, we are now equipped to make chronomaps that are visually recognizable. As I will be making many of these figures, I wrote a function that will return the whole chronomap, `make_chronomap(x,y,z, ax, projmap, p0, levels, lim = 155, plot_states=True, plot_cities=True, dist_cut=25, n_cities_cut=20, small_city_radius=0, plot_roads=True, roads='', plot_water=True, cbarlabel='Travel time (hours)', theta='', water_lw=1, zorder_water=3)`
@@ -435,7 +435,7 @@ cities = [[ci['longitude'],ci['latitude'],ci['name'],ci['population']] for ci in
 cities = cluster_cities(cities, dist_cut)
 cities_plot = [ci for ci in cities if (len(ci)>4 and time_func([ci[0], ci[1]])<levels[-2]) or time_func([ci[0], ci[1]])<small_city_radius]
 texts=[]
-for ci in cities_plot[:n_cities_cut]:
+for ci in reversed(cities_plot[:n_cities_cut]):
     mci = morph([ci[0], ci[1]], p0, time_func, projmap=themap)
     if is_in_range(mci, ax.get_xlim(),ax.get_ylim()) :
         ax.scatter(*mci, c='k', zorder=100, **map_point_style(ci[-1]) )
@@ -443,7 +443,7 @@ for ci in cities_plot[:n_cities_cut]:
         texts.append(ax.text(*mci, s=reformat_name(ci[2]), fontdict=font, zorder=100))
 for txt in texts: txt.set_path_effects([PathEffects.withStroke(linewidth=2, foreground='w')])
 ```
-Here first I get a list of cities from the GeoNamesCache database, filtering the ones that are in the geographical range of the map, then I cluster them, and finally I plot each city and add a text label with the correct font reflecting the population. A cool feature of `matplotlib` is the ability to put a white background behind the text to improve readability. This is done via `set_path_effects([PathEffects.withStroke()])` in the last line.
+Here first I get a list of cities from the GeoNamesCache database, filtering the ones that are in the geographical range of the map, then I cluster them, and finally I plot each city and add a text label with the correct font reflecting the population. The list is reversed because we want a large city to show up on top of a smaller city if their labels overlap. A cool feature of `matplotlib` is the ability to put a white background behind the text to improve readability. This is done via `set_path_effects([PathEffects.withStroke()])` in the last line.
 
 Finally, I plot the isochrones, which by construction are now circles:
 ```python
@@ -459,10 +459,11 @@ I find that the map looks better (more intuitive) by adding a water layer with o
 
 For the last zoomed map, I used the `make_chronomap parameters `dist_cut=10, n_cities_cut=30, small_city_radius=30`: as we are zooming in, I clustered cities with a 10 mile radius, displayed up to 30 cities, and showed all cities within a 30 miles radius of the origin. The resulting map is busy enough, but not too much.
 
+One last comment: the maps would be much messier if it were not for the [adjustText](https://github.com/Phlya/adjustText) package. This package iteratively adjusts the position of text labels to minimize overlaps, while trying to keep the label as close to the original anchor as possible.
 
 ### More Chronomaps
 
-After showing step-by-step how to make chronomaps, we can do many more in a batch. We simply define a list of cities, get tehir coordinates from GeoNamesCache (as before, this could also be done with the Google Maps Geocoding API) and a list of EPSG codes for each city (these can be found on [https://spatialreference.org]()
+After showing step-by-step how to make chronomaps, we can do many more in a batch. We simply define a list of cities, get their coordinates from GeoNamesCache (as before, this could also be done with the Google Maps Geocoding API) and a list of EPSG codes for each city (these can be found on [https://spatialreference.org]()
 
 ```python
 cities_list = ['San Francisco', 'Seattle', 'Denver', 'Chicago', 'Washington, D.C.', 'New York City']
@@ -515,7 +516,11 @@ for idx in range(len(cities_list)):
     ax = make_chronomap(xx,yy,zz, ax, [themap,themap0], p0, levels=levels, plot_cities=True, plot_roads=not True,
                        roads=roads_list[idx], plot_water=True, dist_cut=30, theta=th0)
 ```
-This code generates the following figures:
-
 ![/assets/images/chronomaps/grid_cities_chronomaps.png](/assets/images/chronomaps/grid_cities_chronomaps.png)
 
+In the Jupyter notebook I also generate more chronomaps that are zoomed in the 1-hour range near each origin. This is done simply by changing the `levels` specifications and the `lim` argument to determine a smaller range.
+
+Finally, I generate also animations (find them in the [animations](#animations) subsection above, with matplotlib's `FuncAnimation`. The steps involved are the same discussed above, so no need to repeat them here.
+
+
+That's it at the moment! Get back to the [Results](#results) section to see combined chronomaps, and the videos.
