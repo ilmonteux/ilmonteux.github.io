@@ -20,7 +20,7 @@ name: &name "Angelo Monteux" # &name is a YAML anchor which can be *referenced l
 title: Excursions in dataland
 email: ""
 description: &description ""
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.com - http://127.0.0.1:4000/ 
 github_username:  ilmonteux
 #repository: github.com/ilmonteux
 

@@ -15,3 +15,6 @@ My recent research focuses on new ways to analyze the data generated at the [Lar
 
 This website is a containter for projects in data science and related topics by yours truly.
 
+You can find a copy of my resume below, or download it directly [at this link](/assets/Monteux_cv_1page.pdf).
+
+<embed src="/assets/Monteux_cv_1page.pdf#view=FitH" width="80%" height="80%" type='application/pdf'> 
