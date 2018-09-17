@@ -453,6 +453,7 @@ for lev in levels[:-1]:
     ax.add_patch(Wedge((0,0),lev+dlev,0,360,width=dlev,facecolor=col,edgecolor=col,alpha=0.5))
 ```
 I find that the map looks better (more intuitive) by adding a water layer with oceans/lakes, which covers the other layers. This is done via the `patch_mask_oceans_lakes()` function mentioned above, with the relative water layer ordering specified by `zorder_water` .
+
 <img src="../assets/images/chronomaps/travel_times_Irvine.png" alt="Irvine travel map"  width="32%">
 <img src="../assets/images/chronomaps/chronomap_Irvine.png" alt="Irvine isochrones map"  width="32%">
 <img src="../assets/images/chronomaps/chronomap_Irvine_zoom.png" alt="Irvine isochrones map (zoomed)"  width="32%">
