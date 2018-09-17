@@ -66,7 +66,7 @@ Check out the following visualizations to better understand the concept of chron
 <video width="384" controls preload="auto">
   <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Irvine.mp4" type="video/mp4">
 </video>
-<video width="384" controls preload="auto">
+<video height="365" controls preload="auto">
   <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_SF.mp4" type="video/mp4">
 </video>
 <video width="384" controls preload="auto">
