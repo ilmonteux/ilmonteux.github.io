@@ -38,6 +38,23 @@ gallery_cities:
     image_path: /assets/images/chronomaps/chronomap_NY_combined.png
     alt: "New York chronomap"
     title: "New York chronomap"
+
+gallery_us: 
+  - url: /assets/images/chronomaps/chronomap_US_from_LA_combined.png
+    image_path: /assets/images/chronomaps/chronomap_US_from_LA_combined.png
+    alt: "United States chronomap, with departure from Los Angeles"
+    title: "United States chronomap, with departure from in Los Angeles"
+
+  - url: /assets/images/chronomaps/chronomap_US_from_center_combined.png
+    image_path: /assets/images/chronomaps/chronomap_US_from_center_combined.png
+    alt: "United States chronomap, with departure from geographical center of contiguous US"
+    title: "United States chronomap, with departure from geographical center of contiguous US"
+
+  - url: /assets/images/chronomaps/chronomap_US_from_NY_combined.png
+    image_path: /assets/images/chronomaps/chronomap_US_from_NY_combined.png
+    alt: "United States chronomap, with departure from New York City"
+    title: "United States chronomap, with departure from New York City"
+
 ---
 
 The purpose of this exercise (hosted on [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/)) is to generate **chronomaps**, that is, maps where a segment length on the map reflects travel times instead of distances. The end results are shown in the header above.
@@ -58,7 +75,7 @@ Some of the resulting chronomaps are shown above in the header. The rest is show
 {% include gallery id="gallery_cities" layout="half" caption="Gallery of chronomaps for a selection of US cities: for each city, we show a standard map with isochrones (fixed travel-time contours), and then two chronomaps, one showing the full range and another zooming into the 1-hour range." %}
 
 ### chronomaps of continental US
-coming soon
+{% include gallery id="gallery_us" layout="half" caption="Gallery of chronomaps of the contiguous United States, given three different departure points: for each city, we show a standard US map with super-imposed isochrones (fixed travel-time contours), and the chronomap." %}
 
 ### animations
 Check out the following visualizations to better understand the concept of chronomap: here I show a standard topo map, overlayed with travel isochrones that progressively fill the whole map (as a driver would starting from the origin). Then, the map is smoothly transitioned to the corresponding chronomap (click on each video to play it).
@@ -85,16 +102,31 @@ Check out the following visualizations to better understand the concept of chron
   <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_NY.mp4" type="video/mp4">
 </video>
 
-Interesting pieces of information apparent in the videos above:
+<br>
+
+<video width="450" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_LA.mp4" type="video/mp4">
+</video>
+<video width="450" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_center.mp4" type="video/mp4">
+</video>
+<video width="450" controls preload="auto">
+  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_NY.mp4" type="video/mp4">
+</video>
+
+
+Interesting tidbits of information apparent in the videos above:
 - notice how, when transitioning to the chronomap, certain cities move away from the departure point, while others move closer. This happens when the destination is further away (in travel time) than one would naively think by looking at the distance.
 - notice how most distortions are related to the highway network. This was obviously expected, as the fastest way to get somewhere is through freeways.
-
 
 ## Tutorial
 
 This is a short walkthrough of the Jupyter notebooks available on my [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/). Head over there to see the gritty details, and to reproduce the maps or make your own.
 
 ### Setup
+The environment can be replicated loading the conda's `requirements.txt` available on [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/requirements.txt), via `conda create --name <envname> --file requirements.txt`.
+
+A few packages not available on conda for all platform can be installed with `pip`.
 
 ### Google Maps API calls
 Google Maps has several APIs. We will mostly use the Distance Matrix API: as its name suggests, this API returns travel distance and time for a matrix of origins and destinations (e.g. if I have 5 origins and 10 destinations, it will calculate travel info for all 50 trips between each of the origins and each of the destinations). I have learned how to use the API from the walkthough at [drewfustin.com/isochrones/](drewfustin.com/isochrones/), take a look there for more details.
