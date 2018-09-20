@@ -11,7 +11,11 @@
 // https://github.com/mmistakes/minimal-mistakes/issues/1219
 html {
     $github-color: #007bb6;
-
+    
+    #html5gallery-watermark {
+    display:none !important;
+    }
+    
     font-size: 14px; // originally 16px
     @include breakpoint($medium) {
         font-size: 16px; // originally 18px

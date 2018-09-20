@@ -3,6 +3,15 @@ type: pages
 layout: single
 title: About me
 permalink: /about/
+gallery_cities: 
+  - url: /assets/images/chronomaps/chronomap_Irvine_combined.png
+    image_path: /assets/images/chronomaps/chronomap_Irvine_combined.png
+    alt: "Irvine chronomap"
+    title: "Irvine chronomap"
+  - url: /assets/images/chronomaps/chronomap_SF_combined.png
+    image_path: /assets/images/chronomaps/chronomap_SF_combined.png
+    alt: "San Francisco chronomap"
+    title: "San Francisco chronomap"
 
 ---
 
@@ -12,9 +21,12 @@ I am a postdoctoral researcher in Theoretical Particle Physics at the [Universit
 
 My recent research focuses on new ways to analyze the data generated at the [Large Hadron Collider (LHC)](https://en.wikipedia.org/wiki/Large_Hadron_Collider). I have proposed new search strategies to identify new hypothetical particles that could be produced there, as well as data mining techniques to uncover them in large-dimensional datasets. I have previously worked on a variety of topics, including Dark Matter (what is it made of?), Baryogenesis (why is the Universe made of matter instead of nothing?), and model-building.
 
+You can find all my academic publications on [INSPIRE](http://inspirehep.net/author/profile/A.Monteux.1).
 
 This website is a containter for projects in data science and related topics by yours truly.
 
 You can find a copy of my resume below, or download it directly [at this link](/assets/Monteux_cv_1page.pdf).
 
+
 <embed src="/assets/Monteux_cv_1page.pdf#view=FitH" width="80%" height="80%" type='application/pdf'> 
+

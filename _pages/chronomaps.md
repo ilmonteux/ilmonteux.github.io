@@ -71,48 +71,45 @@ Some of the resulting chronomaps are shown above in the header. The rest is show
 
 ## Results
 
-### chronomaps of US cities
+### Chronomaps of US cities
 {% include gallery id="gallery_cities" layout="half" caption="Gallery of chronomaps for a selection of US cities: for each city, we show a standard map with isochrones (fixed travel-time contours), and then two chronomaps, one showing the full range and another zooming into the 1-hour range." %}
 
-### chronomaps of continental US
+### Chronomaps of continental US
 {% include gallery id="gallery_us" layout="half" caption="Gallery of chronomaps of the contiguous United States, given three different departure points: for each city, we show a standard US map with super-imposed isochrones (fixed travel-time contours), and the chronomap." %}
 
-### animations
-Check out the following visualizations to better understand the concept of chronomap: here I show a standard topo map, overlayed with travel isochrones that progressively fill the whole map (as a driver would starting from the origin). Then, the map is smoothly transitioned to the corresponding chronomap (click on each video to play it).
+### Animations
+Check out the following visualizations to better understand the concept of chronomap: here I show a standard topo map, overlayed with travel isochrones that progressively fill the whole map (as a driver would starting from the origin). Then, the map is smoothly transitioned to the corresponding chronomap (click on each video to play it). 
 
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Irvine.mp4" type="video/mp4">
-</video>
-<video height="365" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_SF.mp4" type="video/mp4">
-</video>
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Sea.mp4" type="video/mp4">
-</video>
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Den.mp4" type="video/mp4">
-</video>
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Chi.mp4" type="video/mp4">
-</video>
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_DC.mp4" type="video/mp4">
-</video>
-<video width="384" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_NY.mp4" type="video/mp4">
-</video>
+First I show animations of a sample of US cities:
+
+<div style="display:none;" class="html5gallery" data-skin="vertical" data-width="360" data-height="420" >
+       <!-- Add videos to Gallery -->
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Irvine.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_Irvine.png" alt="Irvine chronomap"></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_SF.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_SF.png" alt="San Francisco"></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Sea.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_Sea.png" alt="Seattle"></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Den.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_Den.png" alt="Denver"></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_Chi.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_Chi.png" alt="Chicago"></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_DC.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_DC.png" alt="Washington D.C."></a>
+		
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_NY.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_NY.png" alt="New York City"></a>
+</div>
 
 <br>
+I also made animations for chronomaps of the whole continental contiguous United States (lower 48), given different travel origins:
 
-<video width="450" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_LA.mp4" type="video/mp4">
-</video>
-<video width="450" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_center.mp4" type="video/mp4">
-</video>
-<video width="450" controls preload="auto">
-  <source src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_NY.mp4" type="video/mp4">
-</video>
+<div style="display:none;" class="html5gallery" data-skin="vertical" data-width="648" data-height="520" >
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_LA.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_US_from_LA.png" alt="Los Angeles departure"></a>
+
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_center.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_US_from_center.png" alt="US center departure"></a>
+
+		<a href="https://github.com/ilmonteux/mapping/raw/master/chronomaps/animations/animation_US_NY.mp4"><img src="https://github.com/ilmonteux/mapping/raw/master/chronomaps/figs/travel_times_US_from_NY.png" alt="New York City departure"></a>
+
+</div>
 
 
 Interesting tidbits of information apparent in the videos above:

@@ -125,3 +125,8 @@ defaults:
       layout: single
       author_profile: false
       share: true
+
+footer_scripts:
+  - /assets/js/main.min.js
+  - /assets/js/html5gallery/html5gallery.js
+  
