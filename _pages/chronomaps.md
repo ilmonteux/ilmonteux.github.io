@@ -121,7 +121,7 @@ Interesting tidbits of information apparent in the videos above:
 This is a short walkthrough of the Jupyter notebooks available on my [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/). Head over there to see the gritty details, and to reproduce the maps or make your own.
 
 ### Setup
-The environment can be replicated loading the conda's `requirements.txt` available on [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/requirements.txt), via `conda create --name <envname> --file requirements.txt`.
+The environment can be replicated loading conda's file `requirements.txt` available on [GitHub](https://github.com/ilmonteux/mapping/blob/master/chronomaps/requirements.txt), via `conda create --name <envname> --file requirements.txt`.
 
 A few packages not available on conda for all platform can be installed with `pip`.
 
@@ -132,7 +132,7 @@ The API is called by forming a web address of the form:
 ```
 https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=ORIGIN&destinations=DESTINATION&key=API_KEY
 ```
-Here the default travel mode is driving, one can specify route options (e.g. avoid ferries, tolls, by  adding `&avoid=ferries|tolls`). The `origins` and `destinations` are formatted as either a string (e.g. an address) or a latitude,longitude pairs, and can each be separated by `|` if there are multiple of either one. So for example a typical call will have `origins=lat0,lon0&destinations=lat1,lon1|lat2,lon2|lat3,lon3`. The `key` specification is followed by your API key, which you can get for free on the Google Developer platform.
+Here the default travel mode is driving, one can specify route options (e.g. avoid ferries, tolls, by  adding `&avoid=ferries|tolls`). The `origins` and `destinations` are formatted as either a string (e.g. an address) or a latitude,longitude pair, and can each be separated by `|` if there are multiple of either one. So for example a typical call will have `origins=lat0,lon0&destinations=lat1,lon1|lat2,lon2|lat3,lon3`. The `key` specification is followed by your API key, which you can get for free on the Google Developer platform.
 
 > Note: as of July 2018, Google has switched from their old free API system (where a free user had quota on daily API calls) to a pay-as-you-go system where each API call is billed to your account, **but** where they provide a 200USD monthly credit. For the basic Distance Matrix calls, the price is 0.005 USD/element (each call requests `n_origins * n_destinations` elements), which taking the credit into account corresponds to 40,000 free elements per month. Keep an eye on your total usage if you use the API a lot!
 
@@ -241,7 +241,7 @@ def move_from_to_angle(p0, dist_r, alpha):
 
 Starting from an origin point, those functions return another point found moving by a certain distance either in the East/West and North/South direction or along a direction defined by the bearing `alpha` (here we use the [Haversine formulas](https://en.wikipedia.org/wiki/Haversine_formula), which are a simple application of trigonometry on a round Earth).
 
-By iterating these displacements, I can generate rectangular and polar grids around an origin point. The functions that for each type of grid are `def make_xy_grid(p0, max_time, nx, ny, max_speed = 70.)` and `make_polar_grid(p0, max_time, n_radial, n_angles, max_speed = 70)`.
+By iterating these displacements, I can generate rectangular and polar grids around an origin point. The functions that for each type of grid are `make_xy_grid(p0, max_time, nx, ny, max_speed = 70.)` and `make_polar_grid(p0, max_time, n_radial, n_angles, max_speed = 70)`.
 
 Finally, we can call the Distance Matrix API function above on each point of a grid, given a starting location. The function `run_travel_grid(p0, grid)` does exactly that:
 
@@ -275,7 +275,7 @@ pos0 = [city['latitude'], city['longitude']]
 ```
 For reasons that will be clear when the chronomaps are made, for the starting coordinates I picked the ones given by `geonamescache` instead of the result of Google Maps. Given that the coordinates of a city are not a sharply defined concept, there will be smaller differences between what each database returns, and it should not be a problem.
 
-For defining the grid around the origin, I make a mixed rectangular/axial map (with 24824 points in the rectangular grid, and a polar grid with 24 bearings and 20 points along each bearing), that spans a maximum distance of 175 miles (2.5 hours\*70mph) from the origin in each direction. Because I will be later interested in zooming in near the origin, I also add a smaller rectangular 10\*10 subgrid with a semiaxis of 10 miles (10hours\*1mph), which will allow me to have dense data near the origin. Finally, I throw away all the points that are not on land, using the `is_land` method of `Basemap` (which reads the GSHHG shoreline database) iterated over the grid.
+For defining the grid around the origin, I make a mixed rectangular/polar grid (with 24824 points in the rectangular grid, and a polar grid with 24 bearings and 20 points along each bearing), that spans a maximum distance of 175 miles (2.5 hours\*70mph) from the origin in each direction. Because I will be later interested in zooming in near the origin, I also add a smaller rectangular 10\*10 subgrid with a semiaxis of 10 miles (10hours\*1mph), which will allow me to have dense data near the origin. Finally, I throw away all the points that are not on land, using the `is_land` method of `Basemap` (which reads the GSHHG shoreline database) iterated over the grid.
 
 ![/assets/images/chronomaps/tutorial_1-grid.png](/assets/images/chronomaps/tutorial_1-grid.png)
 
@@ -372,7 +372,7 @@ def morph(pp, p0, func, projmap=''):
 ```
 This function simply decomposes a point (given as (lon,lat) pair of coordinates) into radial coordinates from the origin `p0`, `(dx,dy)-> (r,theta)`, computes a new radius given by the input function (which will give the travel time), and returns a `(x',y')` pair in the same direction with respect to the origin as the original point but with a new radius given by the travel time.
 
-Given that we have the travel times only on a discrete set of grid points and we want to rescale map features at arbitrary points, we need to interpolate the travel times over the input grid.  After trying the `interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf` methods of `scipy.interpolate`, I saw that the best results (more accurate, less noisy) were given by `Rbf`, radial basis function approximator, with linear method.
+Given that we have the travel times only on a discrete set of grid points and we want to rescale map features at arbitrary points, we need to interpolate the travel times over the input grid.  After trying the `interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf` methods of `scipy.interpolate`, I saw that the best results (more accurate, less noisy) were given by `Rbf` (radial basis function approximator) with linear method.
 
 ```python 
 from scipy.interpolate import interp2d, NearestNDInterpolator, LinearNDInterpolator, Rbf
@@ -421,8 +421,7 @@ def map_font_style(pop, bins=np.array([.01,.05,.1,.5,1,3])*10**6, sizes=[7,8,9,9
     ```python
     def cluster_cities(cities, dist_cut=25, pop_cut=1.):
     """
-    Cluster nearby cities, such that each city iteratively eats smaller cities within dist_cut of itself.
-   
+    Cluster nearby cities, such that each city iteratively absorbs smaller cities within dist_cut of itself.
     """
     for ci in cities:
         if any([len(ci2)>4 and ci[2] in ci2[4] for ci2 in cities[:cities.index(ci)] ] ):
