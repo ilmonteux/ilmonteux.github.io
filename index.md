@@ -6,18 +6,25 @@ header:
   caption: "Photo credit: [Simon Matzinger on **Unsplash**](https://unsplash.com/photos/twukN12EN7c)"
 
 feature_row:
-  - image_path: /assets/images/chronomaps/chronomap_NY_combined.png
+  - image_path: /assets/images/teasers/chronomaps.png
     alt: "NYC chronomap"
     title: "Chronomaps"
     excerpt: "Create maps based on travel times instead of distances."
     url: "chronomaps/"
     btn_label: "Read More"
     btn_class: "btn--primary"
-  - image_path: assets/images/teasers/election_county_map_carto.png
+  - image_path: /assets/images/teasers/election_county_map_carto.png
     alt: "2016 election map and cartogram"
     title: "Cartograms of US elections"
     excerpt: "Visualize county-level US election results, make *cartograms* based on county population."
     url: "cartograms/"
+    btn_label: "Read More"
+    btn_class: "btn--primary"
+  - image_path: assets/images/teasers/LHCra.png
+    alt: "Rectangular aggregations at the LHC"
+    title: "Rectangular aggregations at the LHC"
+    excerpt: "Data mining algorithm for statistically significant excesses in high-dimensional LHC datasets."
+    url: "LHC_rectangular_aggregation"
     btn_label: "Read More"
     btn_class: "btn--primary"
 
