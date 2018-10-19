@@ -30,9 +30,15 @@ feature_row:
 
 ---
 
-{% comment %}
+
+<h1> Projects </h1>
+
+{% include feature_row id="feature_row" %}
+
+
+# Recent Posts
 <ul>
-  {% for post in site.posts %}
+  {% for post in site.posts limit:5 %}
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a>
       - <small><strong>{{ post.date | date: "%B %e, %Y" }}</strong></small>.
@@ -40,11 +46,10 @@ feature_row:
   {% endfor %}
 </ul>
 
-- [Chronomaps](chronomaps)
-- [Cartogramming US election results](cartograms)
+See all posts [here](/archive/).
+
+
+
+{% comment %}
+This is a comment: it will not show up on the website :)
 {% endcomment %}
-
-
-
-
-{% include feature_row id="feature_row" %}
