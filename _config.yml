@@ -49,8 +49,13 @@ author:
 markdown: kramdown
 #theme: minima
 #theme: jekyll-theme-minimal
-#plugins:
-#  - jekyll-feed
+plugins:
+ - jekyll-include-cache
+ - jekyll-gist
+
+whitelist:
+  - jekyll-gist
+  - jekyll-include-cache
 
 # includes directory
 include:
@@ -78,8 +83,8 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
-      related: true
+      share: false
+      related: false
   # _pages
   - scope:
       path: "_pages"
