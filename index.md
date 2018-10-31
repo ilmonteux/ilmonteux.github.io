@@ -31,12 +31,7 @@ feature_row:
 ---
 
 
-<h1> Projects </h1>
-
-{% include feature_row id="feature_row" %}
-
-
-# Recent Posts
+<h1> Recent Posts </h1>
 <ul>
   {% for post in site.posts limit:5 %}
     <li>
@@ -48,6 +43,10 @@ feature_row:
 
 See all posts [here](/archive/).
 
+
+<h1> Projects </h1>
+
+{% include feature_row id="feature_row" %}
 
 
 {% comment %}
