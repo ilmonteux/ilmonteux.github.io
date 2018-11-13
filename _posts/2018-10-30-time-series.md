@@ -87,7 +87,7 @@ We have already pointed out in the previous section that ROC curves are not usef
 
 ![PR curve neural network](/assets/images/ev/sliding_ROC_PR_curves_nn.png)
 
-We have also tried to pre-process the data given to the neural network: for example, instead of the raw meter readings, we have fed it the spike amplitude (the difference between current reading and the rolling mean, divided by the standard deviation of the series). This results in small deviations in the otuput of the network (the AUC prefers the raw data by a little, but for larger recall one can get better precision from the spike input).
+We have also tried to pre-process the data given to the neural network: for example, instead of the raw meter readings, we have fed it the spike amplitude (the difference between current reading and the rolling mean, divided by the standard deviation of the series). This results in small deviations in the output of the network (the AUC prefers the raw data by a little, but for larger recall one can get better precision from the spike input).
 
 For example, we can achieve precision and recall both of order 50% for a network output threshold of 0.2. Note that this is a huge improvement over the random chance line, which is much smaller due to the large imbalance between number of elements in each class. A random pick with a true positive rate of 50% would have a precision of 5% while we can increase that to 50%: this mean reducing the FP/TP ratio from 20 to 1, so whatever cost is associated with a false positive, we have reduced that by a factor of 20!
 
@@ -106,18 +106,17 @@ But, it turns out that there is much more information available in the dataset. 
 
 As before, we can see still see the correspondence between energy consumption and EV charging. But now, instead of having to make a prediction for each point of the time series, we only have to give one prediction per household.
 
-To make these predictions, we again try a logistic regression and a multi-layer perceptron, but this time we can also pick a 2D convolutional neural network. It does not need to be very deep, it turns out that two convolutional layers with 32 and 64 nodes followed by a dense hidden layer is sufficient. The resulting ROC curves are shown below: the convolutional neural network is vastly outperforming the other classfiers, as well as the 
+To make these predictions, we again try a logistic regression and a multi-layer perceptron, but this time we can also pick a 2D convolutional neural network. It does not need to be very deep, it turns out that two convolutional layers with 32 and 64 nodes followed by a dense hidden layer is sufficient. The resulting ROC curves are shown below: the convolutional neural network is vastly outperforming the other classfiers.
 
 ![ROC curves for 2D images and household classification](/assets/images/ev/images2D_ROC_PR_curves_nn.png)
 
 This is it. We can classify if a house has an electric vehicle with over 90-95% accuracy using a simple convolutional network. `
 
-> What is the CNN learning? There are several ways to go inquire this: I have verified that it is looking for correlations in the day-to-day direction: if we change the feature map size in the convolutional layer to be 1-dimensional (a $$1\times N$$ rectangle), the efficiency drops considerably. Similarly, if we split the images in shorter time intervals (say from a  sixty-day image to 10 six-days images), the efficiency again drops.
+> What is the CNN learning? There are several ways to go inquire this: I have verified that it is looking for correlations in the day-to-day direction: if we change the feature map size in the convolutional layer to be 1-dimensional (say, a $$1\times N$$ rectangle), the efficiency drops considerably. Similarly, if we split the images in shorter time intervals (say from a  sixty-day image to 10 six-days images), the efficiency again drops.
 
-Finally, we can take a look at a sample of the ConvoNN predictions: for example, we can take the two cases (one for each class) for which it was most certain and it made the right prediction, the most uncertain case, and again two cases where it was very certain about its prediction but failed miserably.
+Finally, we can take a look at a sample of the ConvoNN predictions: for example, we can take the two cases (one for each class) for which it was most certain and it made the right prediction, the most uncertain case, and again two cases where it was very certain about its prediction but failed miserably (exercise: can you think of why they were misclassified?).
 
 ![2D images (mis)classified](/assets/images/ev/image2D_prediction_successes_fails.png)
-
 
 
 # Summary
