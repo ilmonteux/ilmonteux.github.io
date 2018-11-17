@@ -89,7 +89,7 @@ We have already pointed out in the previous section that ROC curves are not usef
 
 We have also tried to pre-process the data given to the neural network: for example, instead of the raw meter readings, we have fed it the spike amplitude (the difference between current reading and the rolling mean, divided by the standard deviation of the series). This results in small deviations in the output of the network (the AUC prefers the raw data by a little, but for larger recall one can get better precision from the spike input).
 
-For example, we can achieve precision and recall both of order 50% for a network output threshold of 0.2. Note that this is a huge improvement over the random chance line, which is much smaller due to the large imbalance between number of elements in each class. A random pick with a true positive rate of 50% would have a precision of 5% while we can increase that to 50%: this mean reducing the FP/TP ratio from 20 to 1, so whatever cost is associated with a false positive, we have reduced that by a factor of 20!
+For example, we can achieve precision and recall both of order 50% for a network output threshold of 0.2. Note that this is a huge improvement over the random chance line, which is much smaller due to the large imbalance between number of elements in each class. A random pick with a true positive rate of 50% would have a precision of 5% while we can increase that to 50%: this mean reducing the FP/TP ratio from 20 to 1, so whatever cost is associated with a false positive, we have reduced that by a factor of 20!
 
 
 Again, for each time series we can now plot the probability that an EV is charging at any moment. We can then decide a threshold above which we classify an interval as an EV charging event. Compared to the analytical approach, we can see that the neural network output is much less noisy.
@@ -106,7 +106,7 @@ But, it turns out that there is much more information available in the dataset. 
 
 As before, we can see still see the correspondence between energy consumption and EV charging. But now, instead of having to make a prediction for each point of the time series, we only have to give one prediction per household.
 
-To make these predictions, we again try a logistic regression and a multi-layer perceptron, but this time we can also pick a 2D convolutional neural network. It does not need to be very deep, it turns out that two convolutional layers with 32 and 64 nodes followed by a dense hidden layer is sufficient. The resulting ROC curves are shown below: the convolutional neural network is vastly outperforming the other classfiers.
+To make these predictions, we again try a logistic regression and a multi-layer perceptron, but this time we can also pick a 2D convolutional neural network. It does not need to be very deep, it turns out that two convolutional layers with 32 and 64 nodes followed by a dense hidden layer is sufficient. The resulting ROC curves are shown below: the convolutional neural network is vastly outperforming the other classifiers.
 
 ![ROC curves for 2D images and household classification](/assets/images/ev/images2D_ROC_PR_curves_nn.png)
 
@@ -125,7 +125,7 @@ In this post, I have gone through a simple time series analysis, with the goal o
 
 A simple follow-up would be to use the household classification bit to improve the event detection in the time series data, given the following point: clearly, only an EV household will have EV charging events. Given that the former is easier to classify, one could only allow the algorithm to detect charging events in EV households, therefore removing a whole lot of false positives in the no-EV time series. This would most likely greatly improve the event detection precision.
 
-While this discussion was based on electric smart meter readings, one can imagine similar techniques in many other fields. Obviously, a lot of utilities would have similar types of problems (internet providers managing network loads, water utilities responding to spikes on top of daily routines), but other fields such as cloud computing/storage, banks fraud departments, and obviosuly finance, likely treat similar problems. 
+While this discussion was based on electric smart meter readings, one can imagine similar techniques in many other fields. Obviously, a lot of utilities would have similar types of problems (internet providers managing network loads, water utilities responding to spikes on top of daily routines), but other fields such as cloud computing/storage, banks fraud departments, and obviously finance, likely treat similar problems. 
 
 This was my first foray in time series analysis, and it was fun! Feel free to let me know if this post was useful in a another field, or how you would have done things differently!
 
