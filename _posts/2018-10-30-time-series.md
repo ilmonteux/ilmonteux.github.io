@@ -2,6 +2,7 @@
 type: posts
 title:  "Event Detection in Time Series"
 classes: wide
+tags: [data, time series, machine learning]
 toc: true
 ---
 

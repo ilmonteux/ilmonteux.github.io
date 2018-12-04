@@ -2,6 +2,7 @@
 type: posts
 title:  "Jet tagging in one hour with convolutional neural networks"
 classes: wide
+tags: [ physics, python, machine learning, keras, tensorflow ]
 toc: true
 ---
 
@@ -9,7 +10,7 @@ toc: true
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-> This post is based on preliminary work I made with Sebastian Macaluso and David Shih with which I collaborated before leaving Rutgers University in 2017. The work shown here is a simpler version of what ended up in the published paper [arXiv:1803.00107](https://arxiv.org/abs/1803.00107) (which I did not end up contributing to), and is intended as a simple walkthrough of the machinery for this kind of work.
+> This post is based on preliminary work I made with Sebastian Macaluso and David Shih with which I collaborated before finishing my postdoc at Rutgers University in 2017. The work shown here is a simpler version of what ended up in the published paper [arXiv:1803.00107](https://arxiv.org/abs/1803.00107) (which I did not end up contributing to), and is intended as a simple walkthrough of the machinery for this kind of work.
 
 <small>You can find the code necessary to reproduce all the results in the corresponding [GitHub gist](https://gist.github.com/ilmonteux/c8e00f21e1ef99dbb8832cdc7410a8b8).</small>
 
