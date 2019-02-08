@@ -4,6 +4,7 @@ title:  "Event Detection in Time Series"
 classes: wide
 tags: [data, time series, machine learning]
 toc: true
+permalink: /EV_charging/
 ---
 
 <script type="text/javascript" async
