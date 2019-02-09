@@ -17,11 +17,11 @@ gallery_cities:
 
 Hello there!
 
-I am a postdoctoral researcher in Theoretical Particle Physics at the [University of California, Irvine](http://theory.physics.uci.edu/) since 2017. Previously I was a postdoc at [Rutgers University](http://www.physics.rutgers.edu/het/), and before that I did my Ph.D. in Physics at the [University of California, Santa Cruz](https://www.ucsc.edu).
+I am a deep learning practitioner, currently an AI fellow at [Insight Data Science](http://insightdata.ai/). I am excited to explore the tools allowing us to find new insights in the massive datasets of our day and age.
 
-My recent research focuses on new ways to analyze the data generated at the [Large Hadron Collider (LHC)](https://en.wikipedia.org/wiki/Large_Hadron_Collider). I have proposed new search strategies to identify new hypothetical particles that could be produced there, as well as data mining techniques to uncover them in large-dimensional datasets. I have previously worked on a variety of topics, including Dark Matter (what is it made of?), Baryogenesis (why is the Universe made of matter instead of nothing?), and model-building.
+My background is from Particle Physics, where I spent my 20s learning and actively investigating data generated at the [Large Hadron Collider (LHC)](https://en.wikipedia.org/wiki/Large_Hadron_Collider) to answer fundamental questions like the nature of dark matter, the origin of matter over anti-matter, or just investigating the frontier of our knowledge of the Universe.
 
-You can find all my academic publications on [INSPIRE](http://inspirehep.net/author/profile/A.Monteux.1).
+During my wild ride to answer these questions, I moved from my home country of Italy to the United States, where I got my Ph.D. in Physics at the [University of California, Santa Cruz](https://www.ucsc.edu) and then worked as postdoctoral researcher in  at the [University of California, Irvine](http://theory.physics.uci.edu/) and [Rutgers University](http://www.physics.rutgers.edu/het/). You can find all my academic publications on [INSPIRE](http://inspirehep.net/author/profile/A.Monteux.1).
 
 This website is a containter for projects in data science and related topics by yours truly.
 

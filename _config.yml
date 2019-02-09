@@ -29,9 +29,9 @@ github_username:  ilmonteux
 author:
   name             : *name # *name is a YAML reference pointing to the &anchor earlier
   avatar           : # link to small image
-  bio              : "Theoretical Physicist"
-  location         : "Irvine, CA"
-  email            : "anmonteux@gmail.com"
+  bio              : "Deep Learning Engineer"
+  location         : "San Francisco, CA"
+  email            : "amonteux.AI@gmail.com"
   uri              : "https://ilmonteux.github.io"
   home             : "ilmonteux.github.io"
   bitbucket        :
@@ -41,7 +41,7 @@ author:
   facebook         :
   foursquare       :
   github           : "ilmonteux"
-  linkedin         : "angelo-monteux"
+  linkedin         : "amonteux"
 
 
 
