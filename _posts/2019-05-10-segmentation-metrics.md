@@ -145,12 +145,7 @@ For the second point, we can just drop the background class (usually this is the
 For example see the following figure, where we have two classes present (circles in red, diamonds in blue), with respective IoU's equal to 0.73 and 0.29. The mean IoU for those classes is therefore the average, 0.51. Now, if I had been trying to segment additional classes (say two more, a square and a star) but the model had correctly identified that they are not in the image, the IoU for those absent classes would have been 1, and the mean taking all four classes would have been higher (0.75), which would be misleading.
 
 
-<figure>
-	<img src="/assets/images/segmentation/metrics_mean_iou_multiclass.png">
-	<figcaption><div markdown="1">
-  Example of multi-class prediction and mean IoU.
-  </div></figcaption>
-</figure>
+![Multi-class prediction and mean IoU.](/assets/images/segmentation/metrics_mean_iou_multiclass.png)
 
 This more advanced mean IoU computation is almost the same as above, except that we mask out the classes that do not appear. So we define a mask (a `batch_size * num_classes`-shaped matrix) which is zero when the class is not present and not predicted.
 ```python
