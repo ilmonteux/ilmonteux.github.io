@@ -57,6 +57,9 @@ whitelist:
   - jekyll-gist
   - jekyll-include-cache
 
+# generate posts with future dates
+future: true
+
 # includes directory
 include:
   - _pages
